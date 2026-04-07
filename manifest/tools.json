@@ -1,0 +1,102 @@
+[
+  {
+    "id": "get_design_context",
+    "name": "get_design_context",
+    "description": "Retorna o contexto de design (layout, estilos, hierarquia) de um nó ou seleção no Figma.",
+    "handler": "./handlers/get-design-context.js",
+    "inputSchema": {
+      "type": "object",
+      "required": ["fileKey", "nodeId"],
+      "properties": {
+        "fileKey": {
+          "type": "string",
+          "description": "Chave do arquivo Figma (ex.: 'abc123XYZ')"
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "ID do nó no Figma (ex.: '12:34')"
+        },
+        "depth": {
+          "type": "integer",
+          "description": "Profundidade da árvore a retornar (default: 2)",
+          "default": 2
+        }
+      }
+    },
+    "permissions": ["read:design"],
+    "tags": ["design", "context"],
+    "resourceRefs": ["schema_figma_node"]
+  },
+  {
+    "id": "get_screenshot",
+    "name": "get_screenshot",
+    "description": "Captura um screenshot (PNG/SVG) de um nó ou frame no Figma.",
+    "handler": "./handlers/get-screenshot.js",
+    "inputSchema": {
+      "type": "object",
+      "required": ["fileKey", "nodeId"],
+      "properties": {
+        "fileKey": { "type": "string", "description": "Chave do arquivo Figma" },
+        "nodeId":  { "type": "string", "description": "ID do nó" },
+        "format":  { "type": "string", "enum": ["png", "svg", "jpg", "pdf"], "default": "png" },
+        "scale":   { "type": "number", "default": 2, "description": "Escala da imagem (1x, 2x, 3x)" }
+      }
+    },
+    "permissions": ["read:design", "read:assets"],
+    "tags": ["screenshot", "export", "assets"]
+  },
+  {
+    "id": "get_variable_defs",
+    "name": "get_variable_defs",
+    "description": "Retorna as definições de variáveis (design tokens) e estilos associados a uma seleção.",
+    "handler": "./handlers/get-variable-defs.js",
+    "inputSchema": {
+      "type": "object",
+      "required": ["fileKey"],
+      "properties": {
+        "fileKey": { "type": "string", "description": "Chave do arquivo Figma" },
+        "nodeId":  { "type": "string", "description": "ID do nó (opcional, retorna todas se omitido)" },
+        "includeRemote": { "type": "boolean", "default": false, "description": "Incluir variáveis de bibliotecas remotas" }
+      }
+    },
+    "permissions": ["read:variables"],
+    "tags": ["variables", "tokens", "styles"]
+  },
+  {
+    "id": "get_code_connect_map",
+    "name": "get_code_connect_map",
+    "description": "Retorna o mapeamento de nós do Figma para componentes no codebase (Code Connect).",
+    "handler": "./handlers/get-code-connect-map.js",
+    "inputSchema": {
+      "type": "object",
+      "required": ["fileKey"],
+      "properties": {
+        "fileKey": { "type": "string", "description": "Chave do arquivo Figma" },
+        "nodeIds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Lista de node IDs para mapear (opcional, retorna todos se omitido)"
+        }
+      }
+    },
+    "permissions": ["read:design", "read:code-connect"],
+    "tags": ["code-connect", "mapping"]
+  },
+  {
+    "id": "get_metadata",
+    "name": "get_metadata",
+    "description": "Retorna representação sparse (XML/JSON) com propriedades básicas dos nós (IDs, nomes, tipos, posição, tamanho).",
+    "handler": "./handlers/get-metadata.js",
+    "inputSchema": {
+      "type": "object",
+      "required": ["fileKey"],
+      "properties": {
+        "fileKey":    { "type": "string", "description": "Chave do arquivo Figma" },
+        "nodeId":     { "type": "string", "description": "Nó raiz (opcional)" },
+        "outputFormat": { "type": "string", "enum": ["json", "xml"], "default": "json" }
+      }
+    },
+    "permissions": ["read:design"],
+    "tags": ["metadata", "inspection"]
+  }
+]
