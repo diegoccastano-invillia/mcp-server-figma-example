@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FigmaNode",
+  "description": "Representação simplificada de um nó do Figma",
+  "type": "object",
+  "required": ["id", "name", "type"],
+  "properties": {
+    "id": { "type": "string", "description": "ID do nó (ex.: '12:34')" },
+    "name": { "type": "string", "description": "Nome do layer/frame" },
+    "type": {
+      "type": "string",
+      "enum": ["FRAME", "GROUP", "COMPONENT", "INSTANCE", "TEXT", "RECTANGLE", "VECTOR", "ELLIPSE", "LINE", "BOOLEAN_OPERATION"]
+    },
+    "absoluteBoundingBox": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      }
+    },
+    "fills": { "type": "array", "items": { "type": "object" } },
+    "strokes": { "type": "array", "items": { "type": "object" } },
+    "children": { "type": "array", "items": { "$ref": "#" } }
+  }
+}
