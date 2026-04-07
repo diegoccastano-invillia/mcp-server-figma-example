@@ -1,0 +1,20 @@
+[
+  {
+    "id": "schema_figma_node",
+    "uri": "resource://schemas/figma-node",
+    "name": "Figma Node JSON Schema",
+    "description": "JSON Schema que descreve a estrutura de um nó retornado pelo Figma.",
+    "mimeType": "application/schema+json",
+    "source": { "type": "file", "path": "./resources/schemas/figma-node.schema.json" },
+    "tags": ["schema", "figma"]
+  },
+  {
+    "id": "design_system_rules",
+    "uri": "resource://docs/design-system-rules",
+    "name": "Design System Rules",
+    "description": "Regras e diretrizes para tradução de design Figma → código front-end.",
+    "mimeType": "text/markdown",
+    "source": { "type": "file", "path": "./resources/design-system-rules.md" },
+    "tags": ["docs", "design-system"]
+  }
+]
